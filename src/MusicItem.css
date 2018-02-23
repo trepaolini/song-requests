@@ -1,0 +1,15 @@
+/* Request List */
+.musicItem {
+    display:inline-block;
+    margin:10px;
+}
+
+.musicItem p {
+    margin:0px;
+    opacity:.3;
+}
+
+.likes {
+    cursor: pointer;
+    user-select: none;
+}

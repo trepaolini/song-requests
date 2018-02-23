@@ -1,0 +1,6 @@
+/* Request List */
+.delete {
+    opacity:.5;
+    color:red;
+    cursor:pointer;
+}

@@ -1,0 +1,17 @@
+.brand, .linkItem {
+    font-size:1.5rem;
+    color:black;
+}
+
+.brand:hover, .linkItem:hover {
+    text-decoration: none;
+    color:#0004ffe3;
+}
+.linkItem {
+    cursor:pointer;
+} 
+
+.navbar {
+    border-bottom:1px solid #d3d3d3;
+    margin-bottom:5px;
+}
