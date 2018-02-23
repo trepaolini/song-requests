@@ -43,7 +43,7 @@ export class HomePage extends Component {
         });
 
         return (
-            <div className="container">
+            <div className="container homePage">
                 <div className="form-group">
                     <input className="form-control"
                         placeholder="Input the URL to a song on Spotify"

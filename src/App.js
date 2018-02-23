@@ -4,7 +4,7 @@ import { Auth } from './Auth';
 import { HomePage } from './HomePage';
 import firebase from 'firebase';
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { HashRouter as Router, Route, Link } from "react-router-dom";
 import { MySongs } from './MySongs';
 import { DataTool } from './DataTool';
 
@@ -76,7 +76,6 @@ class App extends Component {
                                 </Collapse>
                             </Navbar>
                             <Route exact path="/" component={HomePage} />
-                            {/* <Route path="/auth" component={Auth} /> */}
                             <Route path="/my-songs" component={MySongs} />
                             <Route path="/data-tool" component={DataTool} />
                         </div>

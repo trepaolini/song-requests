@@ -1,10 +1,10 @@
 /* Request List */
-button.btn-success {
+.homePage button.btn-success {
     line-height: 25px;
     margin-left:10px !important;
 }
 
-input.form-control  {
+.homePage input.form-control  {
     display:inline-block;
     width:50%;
 }
