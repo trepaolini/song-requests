@@ -3,17 +3,27 @@ import './App.css';
 import { Auth } from './Auth';
 import { HomePage } from './HomePage';
 import firebase from 'firebase';
-import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
 import { HashRouter as Router, Route, Link } from "react-router-dom";
 import { MySongs } from './MySongs';
 import { DataTool } from './DataTool';
+import Drawer from 'material-ui/Drawer';
+import MenuItem from 'material-ui/MenuItem';
+import Menu from 'material-ui/Menu';
+import AppBar from 'material-ui/AppBar';
+import RaisedButton from 'material-ui/RaisedButton';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import Divider from 'material-ui/Divider';
+import 'materialize-css/dist/css/materialize.css';
+import 'typeface-roboto';
+
+
 
 class App extends Component {
     constructor(props) {
         super(props);
         this.toggleNavbar = this.toggleNavbar.bind(this);
         this.state = {
-            collapsed: true,
+            open: false,
             user: null,
             loaded: false
         };
@@ -22,6 +32,14 @@ class App extends Component {
         this.setState({
             collapsed: !this.state.collapsed
         });
+    }
+
+    handleToggle() {
+        this.setState({ open: !this.state.open });
+    }
+
+    handleClose() {
+        this.setState({ open: false });
     }
 
 
@@ -55,37 +73,58 @@ class App extends Component {
     render() {
         return (
             <div>
-                {(this.state.user && this.state.loaded) &&
-                    <Router>
-                        <div>
-                            <Navbar color="faded" light>
-                                <Link to="/" className="brand">Song Requests</Link>
-                                <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
-                                <Collapse isOpen={!this.state.collapsed} navbar>
-                                    <Nav navbar>
-                                        <NavItem>
-                                            <Link className="linkItem" to="/my-songs">My Songs</Link>
-                                        </NavItem>
-                                        <NavItem>
-                                            <Link className="linkItem" to="/data-tool">User Comparison</Link>
-                                        </NavItem>
-                                        <NavItem>
-                                            <span className="linkItem" onClick={() => this.handleSignOut()}>LogOut</span>
-                                        </NavItem>
-                                    </Nav>
-                                </Collapse>
-                            </Navbar>
-                            <Route exact path="/" component={HomePage} />
-                            <Route path="/my-songs" component={MySongs} />
-                            <Route path="/data-tool" component={DataTool} />
-                        </div>
-                    </Router >
-                }
-                {(!this.state.user && this.state.loaded) &&
-                    <Auth />
+                <MuiThemeProvider>
+                    <AppBar
+                        title="Song Requests"
+                        onLeftIconButtonClick={() => this.handleToggle()}
+                    />
+                    <div>
+                        {(this.state.user && this.state.loaded) &&
+                            <Router>
+                                <div>
 
-                }
+                                    <Drawer docked={false}
+                                        width={200}
+                                        open={this.state.open}
+                                        onRequestChange={(open) => this.setState({ open })}>
+                                        <Menu selectedMenuItemStyle={{ backgroundColor: 'green' }}>
+                                            <Link to="/" className="brand">
+                                                <MenuItem>
+                                                    Song Requests
+                                            </MenuItem>
+                                            </Link>
+                                            <Link className="linkItem" to="/my-songs">
+                                                <MenuItem selected={true}>
+                                                    My Songs
+                                            </MenuItem>
+                                            </Link>
+                                            <Link className="linkItem" to="/data-tool">
+                                                <MenuItem>
+                                                    Compare Users
+                                            </MenuItem>
+                                            </Link>
+                                            <Divider />
+                                            <span className="linkItem" onClick={() => this.handleSignOut()}>
+                                                <MenuItem>
+                                                    LogOut
+                                            </MenuItem>
+                                            </span>
+                                        </Menu>
+                                    </Drawer>
+                                    <Route exact path="/" component={HomePage} />
+                                    <Route path="/my-songs" component={MySongs} />
+                                    <Route path="/data-tool" component={DataTool} />
+                                </div>
+                            </Router >
 
+                        }
+                        {
+                            (!this.state.user && this.state.loaded) &&
+                            <Auth />
+
+                        }
+                    </div>
+                </MuiThemeProvider >
             </div>
         );
     }

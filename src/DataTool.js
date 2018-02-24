@@ -3,11 +3,10 @@ import './App.css';
 import { Auth } from './Auth';
 import firebase from 'firebase';
 import { RequestList } from './RequestList';
-import { Redirect } from 'react-router-dom';
 import * as d3 from 'd3';
 import { ResponsiveContainer, Label, XAxis, YAxis, Tooltip, BarChart, Bar } from 'recharts';
-import { Button, ButtonGroup } from 'reactstrap';
-
+import 'typeface-roboto';
+import RaisedButton from 'material-ui/RaisedButton';
 export class DataTool extends Component {
     constructor(props) {
         super(props);
@@ -47,16 +46,13 @@ export class DataTool extends Component {
             }))
             .entries(requestArray);
 
-        // console.log(byUser)
         let height = window.innerHeight - 200;
         let xLabel = this.state.xAxis == 'numSongs' ? 'Number of Requests' : 'Number of Likes'
         return (
             <div className="container">
-                <h1>User Data</h1>
-                <ButtonGroup>
-                    <Button onClick={() => this.setState({ xAxis: 'numSongs' })}># Requests</Button>
-                    <Button onClick={() => this.setState({ xAxis: 'likes' })}># Likes</Button>
-                </ButtonGroup>
+                <h3>User Data</h3>
+                <RaisedButton primary={true} onClick={() => this.setState({ xAxis: 'numSongs' })}># Requests</RaisedButton>{'  '}
+                <RaisedButton primary={true} onClick={() => this.setState({ xAxis: 'likes' })}># Likes</RaisedButton>
                 <ResponsiveContainer width={"100%"} height={height}>
                     <BarChart className="chart" layout="vertical" data={byUser} margin={{ top: 5, right: 30, left: 100, bottom: 15 }}>
                         <XAxis type="number" dataKey={"value." + this.state.xAxis}>

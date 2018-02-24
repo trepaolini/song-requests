@@ -2,6 +2,10 @@
 import React, { Component } from 'react';
 import firebase from 'firebase';
 import { Redirect } from 'react-router-dom';
+import TextField from 'material-ui/TextField';
+import Paper from 'material-ui/Paper';
+import RaisedButton from 'material-ui/RaisedButton';
+import './Auth.css';
 
 class Auth extends Component {
     constructor(props) {
@@ -49,9 +53,8 @@ class Auth extends Component {
     }
 
     handleChange(event) {
-        let field = event.target.name; //which input
-        let value = event.target.value; //what value
-
+        let value = event.target.value;
+        let field = event.target.name;
         let changes = {}; //object to hold changes
         changes[field] = value; //change this field
         this.setState(changes); //update state
@@ -61,40 +64,26 @@ class Auth extends Component {
     render() {
         return (
             <div className="container">
-                <div className="form-group">
-                    <label>Email:</label>
-                    <input className="form-control"
-                        name="email"
-                        value={this.state.email}
+                {['email', 'password', 'username'].map((d) => {
+                    return <input
+                        name={d}
+                        className="validate"
+                        placeholder={d}
+                        type={d === 'username' ? 'text' : d}
                         onChange={(event) => { this.handleChange(event) }}
                     />
-                </div>
+                })
+
+                }
 
                 <div className="form-group">
-                    <label>Password:</label>
-                    <input type="password" className="form-control"
-                        name="password"
-                        value={this.state.password}
-                        onChange={(event) => { this.handleChange(event) }}
-                    />
-                </div>
-
-                <div className="form-group">
-                    <label>Username:</label>
-                    <input className="form-control"
-                        name="username"
-                        value={this.state.username}
-                        onChange={(event) => { this.handleChange(event) }}
-                    />
-                </div>
-
-                <div className="form-group">
-                    <button className="btn btn-primary mr-2" onClick={() => this.handleSignUp(this.state.email, this.state.password, this.state.username)}>
+                    <RaisedButton primary={true} onClick={() => this.handleSignUp(this.state.email, this.state.password, this.state.username)}>
                         Sign Up
-                     </button>
-                    <button className="btn btn-success mr-2" onClick={() => this.handleSignIn(this.state.email, this.state.password)}>
+                     </RaisedButton>
+                    {'  '}
+                    <RaisedButton primary={true} onClick={() => this.handleSignIn(this.state.email, this.state.password)}>
                         Sign In
-                    </button>
+                    </RaisedButton>
                 </div>
             </div>
         );

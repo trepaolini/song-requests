@@ -44,13 +44,17 @@ export class HomePage extends Component {
 
         return (
             <div className="container homePage">
-                <div className="form-group">
-                    <input className="form-control"
-                        placeholder="Input the URL to a song on Spotify"
-                        name="songLink"
-                        value={this.state.songLink}
-                        onChange={(event) => { this.updateSong(event) }}
-                    />
+                <div>
+                    <div class="input-field col s6">
+                        <input
+                            className="validate"
+                            placeholder="Input the URL to a song on Spotify"
+                            name="songLink"
+                            type="text"
+                            value={this.state.songLink}
+                            onChange={(event) => { this.updateSong(event) }}
+                        />
+                    </div>
                     <button className="btn btn-success mr-2" onClick={() => this.addRequest()}>
                         Add Request
                         </button>
