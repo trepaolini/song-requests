@@ -19,15 +19,15 @@ export class MySongs extends Component {
 
         this.requestRef.on('value', (snapshot) => {
             let requests = snapshot.val();
-            this.setState({ requests: requests });
+            this.setState({
+                requests: requests
+            });
         });
     }
 
     deleteSong(key) {
-        console.log('key', key)
         let songRef = firebase.database().ref('requests/' + key)
         songRef.remove();
-
     }
 
 
@@ -44,20 +44,16 @@ export class MySongs extends Component {
 
         return (
             <div className="container">
-                <h1>Songs I've Requested</h1>
-                {
-                    requestArray.map((d, i) => {
-                        return <div key={'link-' + i}>
-                            <a href={d.songLink}>Link </a>
-                            has {d.likes} likes.
-                            <span className="delete" onClick={() => this.deleteSong(d.key)}>(delete)</span>
-                        </div>
-                    })
-                }
-
-
+              <h1>Songs I've Requested</h1>
+              { requestArray.map((d, i) => {
+                    return <div key={ 'link-' + i }>
+                             <a href={ d.songLink }>Link </a> has
+                             { d.likes } likes.
+                             <span className="delete" onClick={ () => this.deleteSong(d.key) }>(delete)</span>
+                           </div>
+                }) }
             </div>
-        );
+            );
     }
 }
 
